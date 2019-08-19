@@ -15,11 +15,19 @@ client.on("connect", function (error) {
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/fatorial/:num', (req, res) => {
-    const param = req.params.num
+    const n = req.params.num
     client.set('fatorial', (err, reply) => {
-        res.send(`Hello Fatorial ${reply}`)
+        const result = fatorial(n) 
+        res.send(`Hello Fatorial ${result}`)
     })
 
+    function fatorial (n) {
+        if (n == 0 || n == 1) {
+            return 1
+        } else {
+            return n * fatorial(n-1)
+        }
+    }
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
